@@ -1,68 +1,67 @@
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from pathlib import Path
 import json
-from updater import check_updates, update_modules, get_local_versions
+import os
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from updater import check_updates, update_modules, get_current_version
 
 app = FastAPI()
 
-# Serve static files and templates
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "app", "templates")
+INDEX_HTML = os.path.join(TEMPLATES_DIR, "index.html")
 
-# Load configuration
 CONFIG_FILE = "config.json"
 
+
 def load_config():
-    try:
-        with open(CONFIG_FILE, 'r') as f:
-            return json.load(f)
-    except:
+    if not os.path.exists(CONFIG_FILE):
         return {
             "auto_update": {
                 "enabled": True,
-                "check_interval_minutes": 5,
+                "check_interval_seconds": 30,
                 "auto_install": True,
-                "show_notification": True
+                "show_notification": True,
             }
         }
+    with open(CONFIG_FILE) as f:
+        return json.load(f)
+
 
 def save_config(config):
-    with open(CONFIG_FILE, 'w') as f:
+    with open(CONFIG_FILE, "w") as f:
         json.dump(config, f, indent=2)
 
-@app.get("/")
-def home():
-    return FileResponse("app/templates/index.html", media_type="text/html")
 
-@app.get("/version")
-def get_version():
-    """Get current local app version"""
-    versions = get_local_versions()
-    return {
-        "current_version": versions.get("module1", "1.0"),
-        "all_versions": versions
-    }
+@app.get("/", response_class=HTMLResponse)
+def home():
+    with open(INDEX_HTML, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
 
 @app.get("/check")
 def check():
     return check_updates()
 
+
 @app.get("/update")
 def update():
     return update_modules()
 
+
+@app.get("/version")
+def version():
+    return {"current_version": get_current_version()}
+
+
 @app.get("/settings")
 def get_settings():
-    config = load_config()
-    return {
-        "auto_update": config.get("auto_update", {})
-    }
+    return load_config()
+
 
 @app.post("/settings")
-def update_settings(settings: dict):
-    config = load_config()
-    if "auto_update" in settings:
-        config["auto_update"] = settings["auto_update"]
-    save_config(config)
-    return {"status": "Settings updated", "settings": config}
+async def post_settings(request: Request):
+    try:
+        data = await request.json()
+        save_config(data)
+        return {"success": True, "message": "Settings saved"}
+    except Exception as e:
+        return {"success": False, "error": str(e)}

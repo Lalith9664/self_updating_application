@@ -25,6 +25,12 @@
       <summary>Whether to disable the touchpad while typing</summary>
       <description>When enabled, touchpads will be disabled while typing on the keyboard.</description>
     </key>
+    <key name="disable-while-typing-timeout" type="u">
+      <default>500</default>
+      <summary>Timeout in milliseconds until the touchpad is enabled after typing</summary>
+      <description>Touchpads will be disabled for this many milliseconds after typing on the keyboard.</description>
+      <range min="100" max="5000"/>
+    </key>
     <key name="tap-to-click" type="b">
       <default>true</default>
       <summary>Enable mouse clicks with touchpad</summary>
@@ -194,6 +200,21 @@
       <default>[0, 100]</default>
       <summary>Eraser pressure range</summary>
       <description>Set this to the percentage of the physical pressure range that should map to the logical range.</description>
+    </key>
+    <key name="eraser-button-mode" enum="org.gnome.desktop.GDesktopStylusEraserButtonMode">
+      <default>'default'</default>
+      <summary>Eraser button mode</summary>
+      <description>Set this to change the behavior of the eraser button.</description>
+    </key>
+    <key name="eraser-button-action" enum="org.gnome.desktop.GDesktopStylusButtonAction">
+      <default>'default'</default>
+      <summary>Eraser button action</summary>
+      <description>Set this to the button action triggered if the eraser button is in 'button' mode.</description>
+    </key>
+    <key type="s" name="eraser-button-keybinding">
+      <default>''</default>
+      <summary>Key combination for the eraser button if in 'button' mode</summary>
+      <description>The keyboard shortcut generated when the button is pressed for custom actions.</description>
     </key>
     <key name="button-action" enum="org.gnome.desktop.GDesktopStylusButtonAction">
       <default>'right'</default>

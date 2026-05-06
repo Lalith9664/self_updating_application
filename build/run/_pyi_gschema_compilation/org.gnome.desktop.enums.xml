@@ -146,6 +146,10 @@
     <value nick="switch-monitor" value="5"/>
     <value nick="keybinding" value="6"/>
   </enum>
+<enum id="org.gnome.desktop.GDesktopStylusEraserButtonMode">
+    <value nick="default" value="0"/>
+    <value nick="button" value="1"/>
+  </enum>
 <enum id="org.gnome.desktop.GDesktopPointerAccelProfile">
     <value nick="default" value="0"/>
     <value nick="flat" value="1"/>
@@ -197,6 +201,20 @@
     <value nick="pink" value="6"/>
     <value nick="purple" value="7"/>
     <value nick="slate" value="8"/>
+  </enum>
+<enum id="org.gnome.desktop.GDesktopReducedMotion">
+    <value nick="no-preference" value="0"/>
+    <value nick="reduce" value="1"/>
+  </enum>
+<enum id="org.gnome.desktop.GDesktopWeekday">
+    <value nick="default" value="0"/>
+    <value nick="monday" value="1"/>
+    <value nick="tuesday" value="2"/>
+    <value nick="wednesday" value="3"/>
+    <value nick="thursday" value="4"/>
+    <value nick="friday" value="5"/>
+    <value nick="saturday" value="6"/>
+    <value nick="sunday" value="7"/>
   </enum>
 </schemalist>
 
