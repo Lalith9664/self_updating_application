@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 def build_app():
-    print("🚀 Starting build process for Windows Application...")
+    print("Starting build process for Windows Application...")
     
     # Check if PyInstaller is installed
     try:
@@ -34,7 +34,7 @@ def build_app():
     print("\nRunning PyInstaller...")
     PyInstaller.__main__.run(pyinstaller_args)
     
-    print("\n✅ Build complete!")
+    print("\nBuild complete!")
     print("Your 'Real App' is located in the 'dist/SelfUpdatingApp' folder.")
     print("You can zip this folder and send it to your Windows users.")
 
