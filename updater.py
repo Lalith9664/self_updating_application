@@ -73,8 +73,9 @@ def install_module(module):
     # Try zip file first
     zip_path = os.path.join(UPDATES_DIR, f"{module}.zip")
     module_dir = os.path.join(UPDATES_DIR, module)
-    extract_path = os.path.join(MODULES_DIR, module)
-    os.makedirs(extract_path, exist_ok=True)
+    
+    # Extract to the current directory (root of the app) to replace full code
+    extract_path = "."
 
     if os.path.exists(zip_path):
         with zipfile.ZipFile(zip_path, "r") as zip_ref:
@@ -83,9 +84,16 @@ def install_module(module):
 
     # Fall back to copying the directory if no zip
     if os.path.isdir(module_dir):
-        if os.path.exists(extract_path):
-            shutil.rmtree(extract_path)
-        shutil.copytree(module_dir, extract_path)
+        import shutil
+        for item in os.listdir(module_dir):
+            s = os.path.join(module_dir, item)
+            d = os.path.join(extract_path, item)
+            if os.path.isdir(s):
+                if os.path.exists(d):
+                    shutil.rmtree(d)
+                shutil.copytree(s, d)
+            else:
+                shutil.copy2(s, d)
         return True
 
     return False

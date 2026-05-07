@@ -296,6 +296,25 @@ pytest
 uvicorn api:app --reload --host 127.0.0.1 --port 8000
 ```
 
+### Local Hot-Reloading Workflow
+When running the application for local development, you can take advantage of the built-in hot-reload feature:
+1. Make a code change (e.g. modify `app/templates/index.html`).
+2. Update `version.json` with a new version number (e.g. bump `"module1"` from `"1.0"` to `"1.1"`).
+3. The running application window will automatically detect the version bump and reload the page to display your code changes instantly!
+
+### Publishing an Update
+Once you're satisfied with your local changes, you can package them into a full update bundle for the `updates/` folder.
+Run the provided publishing script:
+
+```bash
+python publish_update.py
+```
+This script will:
+1. Read your current local `version.json`.
+2. Zip the entire `app/` directory into `updates/module1.zip`.
+3. Update the remote `updates/version.json` file to match.
+Your changes will now be properly recognized as a live update by the application's auto-updater!
+
 ### Adding New Endpoints
 
 Edit `api.py`:

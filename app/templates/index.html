@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,10 +17,10 @@
         body {
             font-family: 'Outfit', sans-serif;
             background: #0f172a;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.2) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.2) 0, transparent 50%);
+            background-image:
+                radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+                radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 0.2) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 0.2) 0, transparent 50%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -30,7 +30,8 @@
             overflow-x: hidden;
         }
 
-        body::before, body::after {
+        body::before,
+        body::after {
             content: '';
             position: absolute;
             width: 300px;
@@ -56,8 +57,15 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(0.8) translate(0, 0); opacity: 0.3; }
-            100% { transform: scale(1.2) translate(50px, 50px); opacity: 0.6; }
+            0% {
+                transform: scale(0.8) translate(0, 0);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(1.2) translate(50px, 50px);
+                opacity: 0.6;
+            }
         }
 
         .container {
@@ -80,6 +88,7 @@
                 opacity: 0;
                 transform: translateY(40px) scale(0.98);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -97,12 +106,19 @@
             margin-bottom: 20px;
             display: inline-block;
             animation: float 4s ease-in-out infinite;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(3deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(3deg);
+            }
         }
 
         .header h1 {
@@ -131,7 +147,7 @@
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-left: 4px solid #818cf8;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
 
@@ -165,14 +181,14 @@
             list-style: none;
             padding: 0;
             margin-top: 15px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 12px;
             overflow: hidden;
         }
 
         .module-item {
             padding: 12px 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -180,7 +196,7 @@
         }
 
         .module-item:hover {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .module-item:last-child {
@@ -236,7 +252,7 @@
             margin-bottom: 25px;
             border: 1px solid rgba(129, 140, 248, 0.3);
             display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .settings-panel.show {
@@ -245,8 +261,15 @@
         }
 
         @keyframes slideDownFade {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .settings-item {
@@ -257,7 +280,7 @@
             padding: 12px 16px;
             background: rgba(15, 23, 42, 0.5);
             border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.03);
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .settings-item:last-child {
@@ -276,12 +299,12 @@
         .toggle-switch {
             width: 46px;
             height: 24px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             cursor: pointer;
             position: relative;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .toggle-switch.active {
@@ -298,7 +321,7 @@
             top: 1px;
             left: 2px;
             transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .toggle-switch.active .slider {
@@ -313,15 +336,15 @@
             top: 0;
             right: 0;
             color: #94a3b8;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             padding: 8px;
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .settings-icon:hover {
             transform: rotate(45deg) scale(1.1);
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: #f8fafc;
         }
 
@@ -349,7 +372,7 @@
             font-size: 13px;
             color: #a5b4fc;
             line-height: 1.6;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .status-content pre {
@@ -364,8 +387,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .version-badge {
@@ -380,7 +410,7 @@
             font-weight: 600;
             margin-top: 15px;
             border: 1px solid rgba(192, 132, 252, 0.3);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .button-group {
@@ -410,8 +440,11 @@
         button::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
             pointer-events: none;
         }
 
@@ -461,10 +494,13 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        .success-message, .error-message {
+        .success-message,
+        .error-message {
             display: none;
             padding: 16px 20px;
             border-radius: 12px;
@@ -472,7 +508,7 @@
             font-weight: 500;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .success-message {
@@ -487,25 +523,33 @@
             color: #f87171;
         }
 
-        .success-message.show, .error-message.show {
+        .success-message.show,
+        .error-message.show {
             display: flex;
             animation: slideInFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes slideInFade {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .progress-bar {
             display: none;
             width: 100%;
             height: 8px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             overflow: hidden;
             margin-top: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .progress-bar.active {
@@ -522,24 +566,38 @@
         }
 
         @keyframes progress {
-            0% { width: 0%; }
-            50% { width: 70%; }
-            100% { width: 100%; }
+            0% {
+                width: 0%;
+            }
+
+            50% {
+                width: 70%;
+            }
+
+            100% {
+                width: 100%;
+            }
         }
 
         @keyframes gradientMove {
-            0% { background-position: 100% 0; }
-            100% { background-position: -100% 0; }
+            0% {
+                background-position: 100% 0;
+            }
+
+            100% {
+                background-position: -100% 0;
+            }
         }
 
         input[type="number"] {
             background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
             font-family: 'Outfit', sans-serif;
             border-radius: 6px;
             padding: 6px;
         }
+
         input[type="number"]:focus {
             outline: none;
             border-color: #818cf8;
@@ -550,15 +608,18 @@
             .container {
                 padding: 30px 20px;
             }
+
             .header h1 {
                 font-size: 28px;
             }
+
             .button-group {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -587,7 +648,8 @@
             </div>
             <div class="settings-item">
                 <span class="settings-label">⏱️ Check Interval (seconds)</span>
-                <input type="number" id="checkInterval" min="1" max="60" style="width: 50px; padding: 6px; border: 1px solid #ddd; border-radius: 4px;" />
+                <input type="number" id="checkInterval" min="1" max="60"
+                    style="width: 50px; padding: 6px; border: 1px solid #ddd; border-radius: 4px;" />
             </div>
             <div class="settings-item">
                 <span class="settings-label">📦 Auto-Install Updates</span>
@@ -601,11 +663,12 @@
                     <div class="slider"></div>
                 </div>
             </div>
-            <button onclick="saveSettings()" style="width: 100%; margin-top: 10px; padding: 8px;" class="btn-check">Save Settings</button>
+            <button onclick="saveSettings()" style="width: 100%; margin-top: 10px; padding: 8px;" class="btn-check">Save
+                Settings</button>
         </div>
 
         <div class="status-section">
-            <div class="status-label">💾 Update Status 
+            <div class="status-label">💾 Update Status
                 <span class="auto-update-badge" id="autoUpdateBadge" style="display: none;">AUTO ✓</span>
             </div>
             <div class="status-display" id="statusDisplay">Ready to check for updates</div>
@@ -626,7 +689,8 @@
                 <span id="checkIcon">🔍</span>
                 <span id="checkText">Check Updates</span>
             </button>
-            <button class="btn-update" id="updateBtn" onclick="instantAutoInstall()" title="Updates install automatically when found">
+            <button class="btn-update" id="updateBtn" onclick="instantAutoInstall()"
+                title="Updates install automatically when found">
                 <span id="updateIcon">⚡</span>
                 <span id="updateText">Auto-Install</span>
             </button>
@@ -718,27 +782,27 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(settings)
             })
-            .then(res => res.json())
-            .then(data => {
-                autoUpdateSettings.checkIntervalSeconds = settings.auto_update.check_interval_seconds;
-                showSuccess('Settings saved successfully');
-                toggleSettings();
-                if (autoUpdateSettings.enabled) {
-                    stopAutoUpdate();
-                    startAutoUpdate();
-                }
-            })
-            .catch(err => showError('Failed to save settings'));
+                .then(res => res.json())
+                .then(data => {
+                    autoUpdateSettings.checkIntervalSeconds = settings.auto_update.check_interval_seconds;
+                    showSuccess('Settings saved successfully');
+                    toggleSettings();
+                    if (autoUpdateSettings.enabled) {
+                        stopAutoUpdate();
+                        startAutoUpdate();
+                    }
+                })
+                .catch(err => showError('Failed to save settings'));
         }
 
         function startAutoUpdate() {
             if (autoCheckInterval) return;
-            
+
             console.log(`Auto-update started. Checking every ${autoUpdateSettings.checkIntervalSeconds} seconds`);
-            
+
             // Check immediately
             autoCheckForUpdates();
-            
+
             // Then check periodically
             autoCheckInterval = setInterval(autoCheckForUpdates, autoUpdateSettings.checkIntervalSeconds * 1000);
         }
@@ -765,13 +829,13 @@
                         if (autoUpdateSettings.showNotification) {
                             showSuccess(`📦 Updates found! Installing: ${data.available_modules.join(', ')}`);
                         }
-                        
+
                         // Always install updates instantly when found
                         console.log('Auto-installing updates instantly...');
                         setTimeout(() => {
                             instantAutoInstall();
                         }, 500);
-                        
+
                         displayStatus(data);
                     } else {
                         // No updates, just display status
@@ -786,10 +850,10 @@
             console.log('Starting auto-install...');
             const statusEl = document.getElementById('statusDisplay');
             const progressBar = document.getElementById('progressBar');
-            
+
             progressBar.classList.add('active');
             statusEl.innerHTML = '<span class="spinner"></span> Auto-installing updates...';
-            
+
             fetch('/update')
                 .then(res => res.json())
                 .then(data => {
@@ -797,6 +861,9 @@
                     loadCurrentVersion();
                     if (data.success && autoUpdateSettings.showNotification) {
                         showSuccess('✅ Updates installed automatically!');
+                    }
+                    if (data.success) {
+                        setTimeout(() => window.location.reload(), 2000);
                     }
                 })
                 .catch(error => {
@@ -852,7 +919,7 @@
             if (data.updates_available) {
                 statusEl.innerHTML = '📦 Updates found! Installing instantly...';
                 hasUpdates = true;
-                
+
                 // Display available modules
                 if (data.available_modules && data.available_modules.length > 0) {
                     modulesList.innerHTML = data.available_modules
@@ -860,12 +927,12 @@
                         .join('');
                     modulesContainer.style.display = 'block';
                 }
-                
+
                 // Trigger instant auto-install
                 setTimeout(() => {
                     instantAutoInstall();
                 }, 500);
-                
+
                 return;
             } else {
                 statusEl.innerHTML = '✨ App is up to date';
@@ -904,10 +971,10 @@
             console.log('Instant auto-install triggered...');
             const statusEl = document.getElementById('statusDisplay');
             const progressBar = document.getElementById('progressBar');
-            
+
             progressBar.classList.add('active');
             statusEl.innerHTML = '<span class="spinner"></span> Installing updates instantly...';
-            
+
             fetch('/update')
                 .then(res => res.json())
                 .then(data => {
@@ -915,6 +982,7 @@
                     loadCurrentVersion();
                     if (data.success) {
                         showSuccess('✅ Updates installed instantly!');
+                        setTimeout(() => window.location.reload(), 2000);
                     } else {
                         showError('Installation completed with errors');
                     }
@@ -927,6 +995,8 @@
                 });
         }
 
+        let loadedVersion = null;
+
         function loadCurrentVersion() {
             fetch('/version')
                 .then(res => res.json())
@@ -934,6 +1004,14 @@
                     const versionBadge = document.getElementById('versionBadge');
                     if (data.current_version) {
                         versionBadge.innerHTML = `<div class="version-badge">v${data.current_version}</div>`;
+
+                        // Hot-reload logic for local development
+                        if (loadedVersion === null) {
+                            loadedVersion = data.current_version;
+                        } else if (loadedVersion !== data.current_version) {
+                            console.log("Local version changed! Reloading to show local code changes...");
+                            window.location.reload();
+                        }
                     }
                 })
                 .catch(err => console.log('Failed to load version:', err));
@@ -961,7 +1039,7 @@
             if (data.modules && data.modules.length > 0) {
                 html += '<strong>Modules:</strong><br>';
                 data.modules.forEach(mod => {
-                    const statusBadge = mod.status === 'success' ? 
+                    const statusBadge = mod.status === 'success' ?
                         `<span class="module-status success">SUCCESS</span>` :
                         `<span class="module-status failed">FAILED</span>`;
                     html += `<div class="module-item">
@@ -992,16 +1070,16 @@
             const checkBtn = document.getElementById('checkBtn');
             const progressBar = document.getElementById('progressBar');
             const originalIcon = checkBtn.querySelector('span:first-child');
-            
+
             setLoading(checkBtn, true);
             progressBar.classList.add('active');
             document.getElementById('statusDisplay').innerHTML = '<span class="spinner"></span> Checking for updates...';
-            
+
             fetch('/check')
                 .then(res => res.json())
                 .then(data => {
                     loadCurrentVersion();
-                    
+
                     if (data.updates_available) {
                         console.log('Updates available:', data.available_modules);
                         showSuccess(`📦 Updates found! Installing instantly...`);
@@ -1028,16 +1106,19 @@
             const updateBtn = document.getElementById('updateBtn');
             const progressBar = document.getElementById('progressBar');
             const originalIcon = updateBtn.querySelector('span:first-child');
-            
+
             setLoading(updateBtn, true);
             progressBar.classList.add('active');
             document.getElementById('statusDisplay').innerHTML = '<span class="spinner"></span> Installing updates...';
-            
+
             fetch('/update')
                 .then(res => res.json())
                 .then(data => {
                     displayUpdateResult(data);
                     loadCurrentVersion();
+                    if (data.success) {
+                        setTimeout(() => window.location.reload(), 2000);
+                    }
                 })
                 .catch(error => {
                     progressBar.classList.remove('active');
@@ -1058,4 +1139,5 @@
         });
     </script>
 </body>
+
 </html>
