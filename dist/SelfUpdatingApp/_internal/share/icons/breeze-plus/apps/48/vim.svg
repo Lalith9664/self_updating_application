@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="vim.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="12.020833"
+     inkscape:cx="24"
+     inkscape:cy="24"
+     inkscape:window-width="1536"
+     inkscape:window-height="792"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient5"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#eff0f1;stop-opacity:1;"
+         offset="0"
+         id="stop5" />
+      <stop
+         style="stop-color:#d6d8da;stop-opacity:1;"
+         offset="1"
+         id="stop6" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop4" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#0b8533;stop-opacity:1;"
+         offset="0"
+         id="stop1" />
+      <stop
+         style="stop-color:#17cf54;stop-opacity:1;"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1"
+       id="linearGradient2"
+       x1="48.509239"
+       y1="11.529394"
+       x2="22.332804"
+       y2="-14.568"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3"
+       id="linearGradient4"
+       x1="32.52691"
+       y1="0.5208155"
+       x2="41.264671"
+       y2="0.39336371"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="rotate(45)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5"
+       id="linearGradient6"
+       x1="31.807627"
+       y1="8"
+       x2="22.235264"
+       y2="34"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <rect
+     style="fill:url(#linearGradient2)"
+     id="rect1"
+     width="29.136"
+     height="29.136"
+     x="19.373238"
+     y="-14.568"
+     ry="1.457"
+     transform="rotate(45)" />
+  <path
+     d="m 4.0931911,23.499468 c -0.1897945,0.516051 -0.081698,1.115569 0.3339843,1.531251 L 22.970157,43.57172 c 0.570761,0.570761 1.489786,0.570761 2.060547,0 L 43.57172,25.030704 c 0.415681,-0.415681 0.523779,-1.015198 0.333984,-1.53125 -0.07077,0.193071 -0.178515,0.375781 -0.333984,0.53125 L 25.030704,42.57172 c -0.570761,0.570761 -1.489785,0.570762 -2.060546,10e-7 L 4.4271754,24.030718 c -0.1554702,-0.15547 -0.2632128,-0.33818 -0.3339843,-0.53125 z"
+     style="opacity:0.2;fill:#000000;fill-opacity:1"
+     id="path1" />
+  <path
+     id="rect2"
+     style="opacity:0.25;fill:url(#linearGradient4);fill-opacity:1"
+     d="m 32.594024,11.991761 9.96883,9.96883 -19.592292,21.009971 -8.970563,-8.970563 z"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     id="path1-2"
+     style="fill:url(#linearGradient6);stroke-width:1.49997"
+     d="m 12,8 v 3 h 2 v 23 h 3 L 36,11 h 2 V 8 h -9 v 3 h 2 L 19,26 V 11 h 2 V 8 Z" />
+</svg>

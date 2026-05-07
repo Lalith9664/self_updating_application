@@ -3,10 +3,16 @@ import os
 import shutil
 import zipfile
 import datetime
+import requests
+import sys
+import subprocess
+import threading
+import time
 
 LOCAL_VERSION_FILE = "version.json"
 UPDATES_DIR = "updates"
 MODULES_DIR = "app/modules"
+UPDATE_BASE_URL = "https://raw.githubusercontent.com/Lalith9664/self_updating_application/main/updates"
 
 
 def get_local_versions():
@@ -17,14 +23,13 @@ def get_local_versions():
 
 
 def get_remote_versions():
-    """Read version info from the local updates/ directory (simulates a remote server)."""
-    remote_version_file = os.path.join(UPDATES_DIR, "version.json")
-    if not os.path.exists(remote_version_file):
-        return {}
+    """Fetch version info from the remote CDN/S3 server."""
     try:
-        with open(remote_version_file) as f:
-            return json.load(f)
-    except Exception:
+        response = requests.get(f"{UPDATE_BASE_URL}/version.json", timeout=5)
+        response.raise_for_status()
+        return response.json()
+    except Exception as e:
+        print(f"Error fetching remote version: {e}")
         return {}
 
 
@@ -69,34 +74,48 @@ def check_updates():
 
 
 def install_module(module):
-    """Install a module from the local updates/ directory."""
-    # Try zip file first
-    zip_path = os.path.join(UPDATES_DIR, f"{module}.zip")
-    module_dir = os.path.join(UPDATES_DIR, module)
+    """Download and install a module from the remote server."""
+    zip_url = f"{UPDATE_BASE_URL}/{module}.zip"
+    temp_zip_path = os.path.join(UPDATES_DIR, f"{module}.zip")
     
-    # Extract to the current directory (root of the app) to replace full code
-    extract_path = "."
-
-    if os.path.exists(zip_path):
-        with zipfile.ZipFile(zip_path, "r") as zip_ref:
-            zip_ref.extractall(extract_path)
-        return True
-
-    # Fall back to copying the directory if no zip
-    if os.path.isdir(module_dir):
-        import shutil
-        for item in os.listdir(module_dir):
-            s = os.path.join(module_dir, item)
-            d = os.path.join(extract_path, item)
-            if os.path.isdir(s):
-                if os.path.exists(d):
-                    shutil.rmtree(d)
-                shutil.copytree(s, d)
-            else:
-                shutil.copy2(s, d)
-        return True
-
-    return False
+    os.makedirs(UPDATES_DIR, exist_ok=True)
+    
+    try:
+        # Download the zip file from the internet
+        print(f"Downloading {zip_url}...")
+        response = requests.get(zip_url, stream=True, timeout=10)
+        response.raise_for_status()
+        
+        with open(temp_zip_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+                
+        # Extract the zip file
+        extract_path = "."
+        
+        # If on Windows, we extract to a temp folder and prepare a batch script
+        if os.name == 'nt':
+            temp_extract = os.path.join(UPDATES_DIR, f"temp_{module}")
+            if os.path.exists(temp_extract):
+                shutil.rmtree(temp_extract)
+            os.makedirs(temp_extract, exist_ok=True)
+            
+            with zipfile.ZipFile(temp_zip_path, "r") as zip_ref:
+                zip_ref.extractall(temp_extract)
+                
+            # We don't clean up the zip yet; the batch script will handle it
+            return {"success": True, "method": "batch", "temp_extract": temp_extract, "temp_zip": temp_zip_path}
+            
+        else:
+            # On Linux/Mac or during development without locks, extract directly
+            with zipfile.ZipFile(temp_zip_path, "r") as zip_ref:
+                zip_ref.extractall(extract_path)
+            os.remove(temp_zip_path)
+            return {"success": True, "method": "direct"}
+            
+    except Exception as e:
+        print(f"Error installing module {module}: {e}")
+        return {"success": False, "error": str(e)}
 
 
 def update_modules():
@@ -121,10 +140,14 @@ def update_modules():
 
     for module in available:
         try:
-            ok = install_module(module)
+            result = install_module(module)
+            ok = result.get("success", False)
             module_results.append({
                 "name": module,
                 "status": "success" if ok else "failed",
+                "method": result.get("method"),
+                "temp_extract": result.get("temp_extract"),
+                "temp_zip": result.get("temp_zip")
             })
             if not ok:
                 all_success = False
@@ -141,6 +164,43 @@ def update_modules():
                 local[result["name"]] = remote[result["name"]]
         with open(LOCAL_VERSION_FILE, "w") as f:
             json.dump(local, f, indent=2)
+
+    # Trigger Windows Batch Updater if needed
+    needs_restart = False
+    if os.name == 'nt' and all_success:
+        for res in module_results:
+            if res.get("method") == "batch":
+                needs_restart = True
+                temp_extract = res["temp_extract"]
+                temp_zip = res["temp_zip"]
+                
+                bat_path = os.path.join(UPDATES_DIR, "update.bat")
+                executable = sys.executable
+                args = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else ""
+                
+                bat_content = f"""@echo off
+echo Updating App... Please wait.
+timeout /t 2 /nobreak > NUL
+xcopy /s /y /i "{temp_extract}\\*" "{os.path.abspath('.')}"
+rmdir /s /q "{temp_extract}"
+del /q "{temp_zip}"
+echo Update complete. Restarting...
+start "" "{executable}" {args}
+del "%~f0"
+"""
+                with open(bat_path, "w") as f:
+                    f.write(bat_content)
+                
+                print("Launching Windows updater batch script...")
+                CREATE_NO_WINDOW = 0x08000000
+                subprocess.Popen([bat_path], creationflags=CREATE_NO_WINDOW)
+                
+                # Shutdown the app gracefully after 1 second so the API can return Success
+                def kill_app():
+                    time.sleep(1)
+                    os._exit(0)
+                threading.Thread(target=kill_app).start()
+                break
 
     return {
         "success": all_success,
