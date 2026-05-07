@@ -2,12 +2,14 @@ import json
 import os
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from updater import check_updates, update_modules, get_current_version
 
 app = FastAPI()
 
 TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "app", "templates")
 INDEX_HTML = os.path.join(TEMPLATES_DIR, "index.html")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 CONFIG_FILE = "config.json"
 
@@ -32,9 +34,9 @@ def save_config(config):
 
 
 @app.get("/", response_class=HTMLResponse)
-def home():
-    with open(INDEX_HTML, "r", encoding="utf-8") as f:
-        return HTMLResponse(content=f.read())
+def home(request: Request):
+    current_ver = get_current_version()
+    return templates.TemplateResponse(request=request, name="index.html", context={"version": current_ver})
 
 
 @app.get("/check")
