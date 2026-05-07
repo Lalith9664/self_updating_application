@@ -25,6 +25,8 @@ def build_app():
         "--name=SelfUpdatingApp",
         "--noconsole",
         "--onedir", 
+        "--hidden-import=webview",
+        "--hidden-import=uvicorn",
         f"--add-data=app{separator}app",
         f"--add-data=version.json{separator}.",
         "--clean",

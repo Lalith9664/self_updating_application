@@ -2,21 +2,25 @@ import webview
 import time
 import signal
 import sys
-import subprocess
+import threading
+import uvicorn
+from api import app
 from updater import update_modules
 
-backend_process = None
-
 def start_server():
-    global backend_process
-    backend_process = subprocess.Popen([sys.executable, "-m", "uvicorn", "api:app", "--port", "8000", "--reload"])
+    def run():
+        # Passing the app object directly avoids PyInstaller string-resolution issues
+        uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")
+    
+    t = threading.Thread(target=run, daemon=True)
+    t.start()
 
 def run_desktop_app():
     # Optional: auto update on startup
     print("Checking updates...")
     update_modules()
 
-    # Start FastAPI server in subprocess with reload
+    # Start FastAPI server in a background thread
     start_server()
 
     # Wait for server to be ready
@@ -39,14 +43,9 @@ def run_desktop_app():
         except Exception:
             webview.start()
 
-    if backend_process:
-        backend_process.terminate()
-
 if __name__ == "__main__":
     # Suppress ugly KeyboardInterrupt traceback on Ctrl+C
     def cleanup(*args):
-        if backend_process:
-            backend_process.terminate()
         sys.exit(0)
     signal.signal(signal.SIGINT, cleanup)
     run_desktop_app()

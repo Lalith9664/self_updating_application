@@ -8,10 +8,16 @@ import sys
 import subprocess
 import threading
 import time
+import time
 
-LOCAL_VERSION_FILE = "version.json"
-UPDATES_DIR = "updates"
-MODULES_DIR = "app/modules"
+if getattr(sys, 'frozen', False):
+    APP_ROOT = sys._MEIPASS
+else:
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+LOCAL_VERSION_FILE = os.path.join(APP_ROOT, "version.json")
+UPDATES_DIR = os.path.join(APP_ROOT, "updates")
+MODULES_DIR = os.path.join(APP_ROOT, "app", "modules")
 UPDATE_BASE_URL = "https://raw.githubusercontent.com/Lalith9664/self_updating_application/main/updates"
 
 
@@ -91,7 +97,7 @@ def install_module(module):
                 f.write(chunk)
                 
         # Extract the zip file
-        extract_path = "."
+        extract_path = APP_ROOT
         
         # If on Windows, we extract to a temp folder and prepare a batch script
         if os.name == 'nt':
@@ -181,7 +187,7 @@ def update_modules():
                 bat_content = f"""@echo off
 echo Updating App... Please wait.
 timeout /t 2 /nobreak > NUL
-xcopy /s /y /i "{temp_extract}\\*" "{os.path.abspath('.')}"
+xcopy /s /y /i "{temp_extract}\\*" "{APP_ROOT}"
 rmdir /s /q "{temp_extract}"
 del /q "{temp_zip}"
 echo Update complete. Restarting...

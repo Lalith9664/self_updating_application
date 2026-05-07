@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -7,13 +8,16 @@ from updater import check_updates, update_modules, get_current_version
 
 app = FastAPI()
 
-TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "app", "templates")
+if getattr(sys, 'frozen', False):
+    APP_ROOT = sys._MEIPASS
+else:
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+TEMPLATES_DIR = os.path.join(APP_ROOT, "app", "templates")
 INDEX_HTML = os.path.join(TEMPLATES_DIR, "index.html")
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
-CONFIG_FILE = "config.json"
-
-
+CONFIG_FILE = os.path.join(APP_ROOT, "config.json")
 def load_config():
     if not os.path.exists(CONFIG_FILE):
         return {
